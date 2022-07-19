@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlaaluno;
-
+import cadastroalunos.CadastroAluno;
 import construtoraluno.Aluno;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,14 +16,25 @@ public class ControlaAluno {
     
     private ArrayList<Aluno> alunos = new ArrayList();
     
-    public boolean salvarDados(Aluno alunos, int pos){
+    public boolean salvarDados(Aluno alunos){
         if(matriculaIgual(alunos)){
-            if(alunos != null && pos == 3){
-                this.alunos.add(3, null);
-                this.alunos.add(3, alunos);
-                return true;
-            }else{
+            if(alunos != null){
                 this.alunos.add(alunos);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean salvarNa3POS(Aluno alunos){
+        if(matriculaIgual(alunos)){
+            if(alunos != null){
+                try{
+                    this.alunos.add(2, alunos);
+                }catch(java.lang.IndexOutOfBoundsException e){
+                    JOptionPane.showMessageDialog(null,"Não foi possível adicionar um aluno na 3º posição");
+                    return false;
+                }
                 return true;
             }
         }

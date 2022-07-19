@@ -4,6 +4,7 @@
  */
 package interfacegrafica;
 
+import cadastroalunos.CadastroAluno;
 import controlaaluno.ControlaAluno;
 import construtoraluno.Aluno;
 import java.io.BufferedWriter;
@@ -474,12 +475,57 @@ public class DlgAlunos extends javax.swing.JDialog {
         }else{
             int ultimoElemento = alunos.size()-1;
             alunos.remove(ultimoElemento);
-            JOptionPane.showMessageDialog(null, "O ultimo elemento foi removido");
+            JOptionPane.showMessageDialog(null, "O ultimo elemento foi removido, feche a aba da lista e abra novamente");
         }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdadeActionPerformed
-        // TODO add your handling code here:
+        ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        StringBuilder maiorMenor = new StringBuilder();
+        
+        int maior = 0, menor = 0, maiorPos=0, menorPos=0;
+        
+        for(int i=0; i<alunos.size();i++){
+            
+            if(i==0){
+                int idadeInt = Integer.parseInt(alunos.get(i).getIdade());
+                maior = idadeInt;
+                menor = idadeInt;
+                maiorPos = i;
+                menorPos = i;
+            }else{
+                int idadeInt = Integer.parseInt(alunos.get(i).getIdade());
+                if(maior<idadeInt){
+                    maior = idadeInt;
+                    maiorPos = i;
+                }
+                if(menor>idadeInt){
+                    menor = idadeInt;
+                    menorPos = i;
+                }
+            }
+        }
+        
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+        
+        maiorMenor
+                        .append("Mais novo:\nNome: ").append(alunos.get(menorPos).getNome())
+                        .append("\nMatricula: ").append(alunos.get(menorPos).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(menorPos).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(menorPos).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(menorPos).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(menorPos).getCpf())
+                        .append("\n\nMais velho:\nNome: ").append(alunos.get(maiorPos).getNome())
+                        .append("\nMatricula: ").append(alunos.get(maiorPos).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(maiorPos).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(maiorPos).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(maiorPos).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(maiorPos).getCpf());
+                        
+                JOptionPane.showMessageDialog(null, maiorMenor);
+        
+        
     }//GEN-LAST:event_btnIdadeActionPerformed
 
     private void btnDadosCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosCSVActionPerformed

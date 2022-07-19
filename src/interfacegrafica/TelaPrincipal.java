@@ -4,11 +4,13 @@
  */
 package interfacegrafica;
 
+import cadastroalunos.CadastroAluno;
 import controlaaluno.ControlaAluno;
 import construtoraluno.Aluno;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -49,13 +51,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tfdMatricula = new javax.swing.JTextField();
         tfdIdade = new javax.swing.JTextField();
         tfdNome = new javax.swing.JTextField();
-        tfdTelefone = new javax.swing.JTextField();
-        tfdCPF = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnDS = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jDateChooserNasc = new com.toedter.calendar.JDateChooser();
         btnTerceiraPosicao = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        tfdTelefone = new javax.swing.JFormattedTextField();
+        tfdCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,18 +101,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        tfdTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdTelefoneActionPerformed(evt);
-            }
-        });
-
-        tfdCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdCPFActionPerformed(evt);
-            }
-        });
-
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +131,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setText("Buscar Aluno");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        try {
+            tfdTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) 9 ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tfdTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdTelefoneActionPerformed(evt);
+            }
+        });
+
+        try {
+            tfdCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,6 +168,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnTerceiraPosicao)
                         .addGap(18, 18, 18)
                         .addComponent(btnDS)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair))
                     .addGroup(layout.createSequentialGroup()
@@ -185,13 +202,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel8)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(tfdTelefone))
+                                        .addGap(37, 37, 37)
+                                        .addComponent(tfdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel9)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(tfdCPF)))))
+                                        .addGap(74, 74, 74)
+                                        .addComponent(tfdCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 140, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -240,7 +257,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnDS)
                     .addComponent(btnSair)
-                    .addComponent(btnTerceiraPosicao))
+                    .addComponent(btnTerceiraPosicao)
+                    .addComponent(btnBuscar))
                 .addContainerGap())
         );
 
@@ -259,14 +277,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdNomeActionPerformed
 
-    private void tfdTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdTelefoneActionPerformed
-
-    private void tfdCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdCPFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdCPFActionPerformed
-
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
@@ -282,7 +292,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         objAluno.setTelefone(tfdTelefone.getText());
         objAluno.setCpf(tfdCPF.getText());
 
-        if (ca.salvarDados(objAluno, 0)) {
+        if (ca.salvarDados(objAluno)) {
             JOptionPane.showMessageDialog(null, "Dados do aluno cadastrados!");
             tfdNome.setText("");
             tfdMatricula.setText("");
@@ -303,23 +313,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDSActionPerformed
     
     private void btnTerceiraPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerceiraPosicaoActionPerformed
-        
-        //btnSalvarActionPerformed(java.awt.event.ActionEvent evt);
-        
-        ArrayList<Aluno> alunos = ca.retornarDados();
 
-        if (alunos.get(2) != null) {
-            
             Aluno objAluno = new Aluno();
-
+            
             objAluno.setNome(tfdNome.getText());
             objAluno.setMatricula(tfdMatricula.getText());
             objAluno.setDataNasc(jDateChooserNasc.getDate());
             objAluno.setIdade(tfdIdade.getText());
-            objAluno.setTelefone(tfdTelefone.getText());
+            //objAluno.setTelefone(tfdTelefone.getText());
             objAluno.setCpf(tfdCPF.getText());
 
-            if (ca.salvarDados(objAluno, 3)) {
+            if (ca.salvarNa3POS(objAluno)) {
                 JOptionPane.showMessageDialog(null, "Dados do aluno cadastrados!");
                 tfdNome.setText("");
                 tfdMatricula.setText("");
@@ -328,14 +332,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 tfdTelefone.setText("");
                 tfdCPF.setText("");
                 tfdNome.requestFocus();
-            } else {
+            } else{
                 JOptionPane.showMessageDialog(null, "Erro! matricula ja existente no sistema.");
             }
-        }
-        
-        
 
     }//GEN-LAST:event_btnTerceiraPosicaoActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        String nome;
+        int nomeNaLista=0;
+        nome = JOptionPane.showInputDialog("Digite o nome que deseja buscar: ");
+        
+        for(int i=0; i<alunos.size();i++){
+            if(nome.toLowerCase().equals(alunos.get(i).getNome().toLowerCase())){
+                nomeNaLista = 1;
+            }
+        }
+        if(nomeNaLista == 1){
+            JOptionPane.showMessageDialog(null, "Aluno cadastrado na lista.");
+        }else{
+            JOptionPane.showMessageDialog(null, "Aluno não cadastrado na lista.");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tfdTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdTelefoneActionPerformed
+
+    }//GEN-LAST:event_tfdTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,6 +400,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDS;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
@@ -393,10 +418,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField tfdCPF;
+    private javax.swing.JFormattedTextField tfdCPF;
     private javax.swing.JTextField tfdIdade;
     private javax.swing.JTextField tfdMatricula;
     private javax.swing.JTextField tfdNome;
-    private javax.swing.JTextField tfdTelefone;
+    private javax.swing.JFormattedTextField tfdTelefone;
     // End of variables declaration//GEN-END:variables
 }

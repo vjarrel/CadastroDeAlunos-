@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package cadastroalunos;
-
 import interfacegrafica.TelaPrincipal;
 
 /**
