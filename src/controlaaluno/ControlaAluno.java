@@ -15,13 +15,27 @@ public class ControlaAluno {
     
     private ArrayList<Aluno> alunos = new ArrayList();
     
-    public boolean salvarDados(Aluno alunos){
-        if(alunos != null){
-            this.alunos.add(alunos);
-            return true;
-        }else{
-            return false;
+    public boolean salvarDados(Aluno alunos, int pos){
+        if(matriculaIgual(alunos)){
+            if(alunos != null && pos == 3){
+                this.alunos.add(3, null);
+                this.alunos.add(3, alunos);
+                return true;
+            }else{
+                this.alunos.add(alunos);
+                return true;
+            }
         }
+        return false;
+    }
+    
+    public boolean matriculaIgual(Aluno alunos){
+        for(int i=0; i < this.alunos.size();i++){
+            if(alunos.getMatricula().equals(this.alunos.get(i).getMatricula())){
+                return false;
+            }
+        }
+        return true;
     }
     
     public ArrayList<Aluno> retornarDados(){

@@ -7,6 +7,7 @@ package interfacegrafica;
 import controlaaluno.ControlaAluno;
 import construtoraluno.Aluno;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +19,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form interfacegrafica
      */
-    
     ControlaAluno ca = new ControlaAluno();
-    
+
     public TelaPrincipal() {
         initComponents();
     }
@@ -55,6 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnDS = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jDateChooserNasc = new com.toedter.calendar.JDateChooser();
+        btnTerceiraPosicao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,7 +131,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jDateChooserNasc.setDateFormatString("d 'de' m 'de' y");
+        jDateChooserNasc.setDateFormatString("dd/MM/yyyy");
+
+        btnTerceiraPosicao.setText("Inserir na 3º Posição");
+        btnTerceiraPosicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerceiraPosicaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +149,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTerceiraPosicao)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair))
@@ -166,7 +176,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDateChooserNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jDateChooserNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7)
@@ -229,7 +239,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnDS)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnTerceiraPosicao))
                 .addContainerGap())
         );
 
@@ -261,17 +272,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+
         Aluno objAluno = new Aluno();
-        
+
         objAluno.setNome(tfdNome.getText());
         objAluno.setMatricula(tfdMatricula.getText());
         objAluno.setDataNasc(jDateChooserNasc.getDate());
         objAluno.setIdade(tfdIdade.getText());
         objAluno.setTelefone(tfdTelefone.getText());
         objAluno.setCpf(tfdCPF.getText());
-        
-        if(ca.salvarDados(objAluno)){
+
+        if (ca.salvarDados(objAluno, 0)) {
             JOptionPane.showMessageDialog(null, "Dados do aluno cadastrados!");
             tfdNome.setText("");
             tfdMatricula.setText("");
@@ -280,16 +291,51 @@ public class TelaPrincipal extends javax.swing.JFrame {
             tfdTelefone.setText("");
             tfdCPF.setText("");
             tfdNome.requestFocus();
-        }else{
-            JOptionPane.showMessageDialog(null, "Dados não cadastrados!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro! matricula ja existente no sistema.");
         }
-        
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSActionPerformed
         DlgAlunos da = new DlgAlunos(null, true, ca);
         da.setVisible(true);
     }//GEN-LAST:event_btnDSActionPerformed
+    
+    private void btnTerceiraPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerceiraPosicaoActionPerformed
+        
+        //btnSalvarActionPerformed(java.awt.event.ActionEvent evt);
+        
+        ArrayList<Aluno> alunos = ca.retornarDados();
+
+        if (alunos.get(2) != null) {
+            
+            Aluno objAluno = new Aluno();
+
+            objAluno.setNome(tfdNome.getText());
+            objAluno.setMatricula(tfdMatricula.getText());
+            objAluno.setDataNasc(jDateChooserNasc.getDate());
+            objAluno.setIdade(tfdIdade.getText());
+            objAluno.setTelefone(tfdTelefone.getText());
+            objAluno.setCpf(tfdCPF.getText());
+
+            if (ca.salvarDados(objAluno, 3)) {
+                JOptionPane.showMessageDialog(null, "Dados do aluno cadastrados!");
+                tfdNome.setText("");
+                tfdMatricula.setText("");
+                jDateChooserNasc.setDate(null);
+                tfdIdade.setText("");
+                tfdTelefone.setText("");
+                tfdCPF.setText("");
+                tfdNome.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro! matricula ja existente no sistema.");
+            }
+        }
+        
+        
+
+    }//GEN-LAST:event_btnTerceiraPosicaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,6 +379,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDS;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnTerceiraPosicao;
     private com.toedter.calendar.JDateChooser jDateChooserNasc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

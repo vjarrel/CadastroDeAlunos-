@@ -28,7 +28,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnTerceiraPosicao" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDS" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnSair" min="-2" max="-2" attributes="0"/>
@@ -57,7 +59,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jDateChooserNasc" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDateChooserNasc" min="-2" pref="131" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jSeparator4" alignment="0" min="-2" pref="507" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
@@ -139,6 +141,7 @@
                   <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDS" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTerceiraPosicao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -263,8 +266,16 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserNasc">
       <Properties>
-        <Property name="dateFormatString" type="java.lang.String" value="d &apos;de&apos; m &apos;de&apos; y"/>
+        <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTerceiraPosicao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Inserir na 3&#xba; Posi&#xe7;&#xe3;o"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTerceiraPosicaoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

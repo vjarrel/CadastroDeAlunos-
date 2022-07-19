@@ -6,7 +6,13 @@ package interfacegrafica;
 
 import controlaaluno.ControlaAluno;
 import construtoraluno.Aluno;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,6 +50,11 @@ public class DlgAlunos extends javax.swing.JDialog {
         btnSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlunos = new javax.swing.JTable();
+        btnTerceiroElemento = new javax.swing.JButton();
+        btnPrimeiroEUltimo = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
+        btnIdade = new javax.swing.JButton();
+        btnDadosCSV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -264,6 +275,41 @@ public class DlgAlunos extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblAlunos);
         tblAlunos.getAccessibleContext().setAccessibleName("");
 
+        btnTerceiroElemento.setText("Terceiro Elemento");
+        btnTerceiroElemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerceiroElementoActionPerformed(evt);
+            }
+        });
+
+        btnPrimeiroEUltimo.setText("Primeiro e Ultimo");
+        btnPrimeiroEUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeiroEUltimoActionPerformed(evt);
+            }
+        });
+
+        btnRemover.setText("Remover o Ultimo");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+
+        btnIdade.setText("Verifica a idade");
+        btnIdade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIdadeActionPerformed(evt);
+            }
+        });
+
+        btnDadosCSV.setText("Salvar Dados em CSV");
+        btnDadosCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDadosCSVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -272,10 +318,20 @@ public class DlgAlunos extends javax.swing.JDialog {
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPrimeiroEUltimo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDadosCSV)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSair))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnTerceiroElemento)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemover))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 60, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -283,9 +339,22 @@ public class DlgAlunos extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSair)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTerceiroElemento)
+                    .addComponent(btnRemover))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSair)
+                            .addComponent(btnDadosCSV)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPrimeiroEUltimo)
+                            .addComponent(btnIdade))))
                 .addContainerGap())
         );
 
@@ -309,9 +378,11 @@ public class DlgAlunos extends javax.swing.JDialog {
         
         for(int i = 0; i < alunos.size(); i++){
             
+            SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+            
             tblAlunos.setValueAt(alunos.get(i).getNome(), i, 0);
             tblAlunos.setValueAt(alunos.get(i).getMatricula(), i, 1);
-            tblAlunos.setValueAt(alunos.get(i).getDataNasc(), i, 2);
+            tblAlunos.setValueAt(dataFormatada.format(alunos.get(i).getDataNasc()), i, 2);
             tblAlunos.setValueAt(alunos.get(i).getIdade(), i, 3);
             tblAlunos.setValueAt(alunos.get(i).getCpf(), i, 4);
             tblAlunos.setValueAt(alunos.get(i).getTelefone(), i, 5);
@@ -323,6 +394,136 @@ public class DlgAlunos extends javax.swing.JDialog {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnTerceiroElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerceiroElementoActionPerformed
+        ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        int qtLista = alunos.size();
+        
+        StringBuilder terceiroElemento = new StringBuilder();
+
+        try {
+            if (alunos.get(2) != null) {
+                
+                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+                
+                terceiroElemento
+                        .append("Nome: ").append(alunos.get(2).getNome())
+                        .append("\nMatricula: ").append(alunos.get(2).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(2).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(2).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(2).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(2).getCpf())
+                        .append("\n\nQuantidade de elementos na lista: ").append(qtLista);
+                JOptionPane.showMessageDialog(null, terceiroElemento);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Não existe elemento na terceira posição!");
+        }
+    }//GEN-LAST:event_btnTerceiroElementoActionPerformed
+
+    private void btnPrimeiroEUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeiroEUltimoActionPerformed
+        ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        StringBuilder primeiroUltimoElemento = new StringBuilder();
+        
+        try {
+            if (alunos.size() >= 2) {
+                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+                
+                int ultimoElemento = alunos.size() - 1;
+                
+                primeiroUltimoElemento
+                        .append("Primeiro Elemento:\nNome: ").append(alunos.get(0).getNome())
+                        .append("\nMatricula: ").append(alunos.get(0).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(0).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(0).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(0).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(0).getCpf())
+                        .append("\n\nUltimo Elemento:\nNome: ").append(alunos.get(ultimoElemento).getNome())
+                        .append("\nMatricula: ").append(alunos.get(ultimoElemento).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(ultimoElemento).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(ultimoElemento).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(ultimoElemento).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(ultimoElemento).getCpf());
+                        
+                JOptionPane.showMessageDialog(null, primeiroUltimoElemento);
+            }else{
+                
+                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+                
+                primeiroUltimoElemento
+                        .append("Nome: ").append(alunos.get(0).getNome())
+                        .append("\nMatricula: ").append(alunos.get(0).getMatricula())
+                        .append("\nData de Nasc.: ").append(dataFormatada.format(alunos.get(0).getDataNasc()))
+                        .append("\nIdade: ").append(alunos.get(0).getIdade())
+                        .append("\nTelefone: ").append(alunos.get(0).getTelefone())
+                        .append("\nCPF: ").append(alunos.get(0).getCpf());
+                JOptionPane.showMessageDialog(null, primeiroUltimoElemento);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Não existe elementos na lista!");
+        }
+    }//GEN-LAST:event_btnPrimeiroEUltimoActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        if(alunos.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"A lista esta vazia");
+        }else{
+            int ultimoElemento = alunos.size()-1;
+            alunos.remove(ultimoElemento);
+            JOptionPane.showMessageDialog(null, "O ultimo elemento foi removido");
+        }
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIdadeActionPerformed
+
+    private void btnDadosCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosCSVActionPerformed
+       ArrayList<Aluno> alunos = ca.retornarDados();
+        
+        File file = new File("aluno.csv");
+        FileWriter fw = null;
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
+        
+        try {
+            fw = new FileWriter(file);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar os arquivos no formato csv");
+        }
+        
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        for(int i = 0; i < alunos.size();i++){
+            try {
+                bw.write(alunos.get(i).getMatricula()+", ");
+                bw.write(alunos.get(i).getNome()+"   ");
+                bw.write(alunos.get(i).getIdade()+", ");
+                bw.write(dataFormatada.format(alunos.get(i).getDataNasc())+", ");
+                bw.write(alunos.get(i).getTelefone()+", ");
+                bw.write(alunos.get(i).getCpf()+" ");
+                
+                bw.newLine();
+            } catch (IOException ex) {
+               JOptionPane.showMessageDialog(null, "Erro ao salvar os arquivos no formato csv");
+            }
+        }
+        
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            //
+        }
+        
+        try {
+            fw.close();
+        } catch (IOException ex) {
+            //
+        }
+    }//GEN-LAST:event_btnDadosCSVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,7 +568,12 @@ public class DlgAlunos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDadosCSV;
+    private javax.swing.JButton btnIdade;
+    private javax.swing.JButton btnPrimeiroEUltimo;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnTerceiroElemento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAlunos;
     // End of variables declaration//GEN-END:variables
