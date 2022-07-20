@@ -531,7 +531,7 @@ public class DlgAlunos extends javax.swing.JDialog {
     private void btnDadosCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosCSVActionPerformed
        ArrayList<Aluno> alunos = ca.retornarDados();
         
-        File file = new File("aluno.csv");
+        File file = new File("ListagemAlunos.csv");
         FileWriter fw = null;
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy"); 
         
